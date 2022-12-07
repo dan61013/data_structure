@@ -341,3 +341,36 @@ example: 93 100 * 10 14 * + 13 +
 -> 9300 140 + = 9440
 -> 9440 13 + = 9453 #
 ```
+
+## Ch04
+
+### 圖 Graph
+是由頂點(Vertice)和邊(Edge)所組成，
+公式:
+```
+G = (V,E)
+```
+- G: 圖形 Graph
+- V: 所有頂點(Vertice)的集合
+- E: 所有邊(Edge)的集合
+
+#### 圖種類
+
+1. 無向圖(Undirected Graph)
+   邊不具有方向性，例如:**雙向道**，
+   邊以(A,B)表示
+   V: {A,B,C,D,E}
+   E: {(A,B),(A,C),(B,C),(C,D),(C,E),(D,E)}
+2. 有向圖(Directed Graph)
+   邊具有方向性，例如:**單向道**，
+   邊以<A,B>表示
+   V: {A,B,C,D,E}
+   E: {<B,A>,<A,C>,<B,C>,<B,D>,<C,D>,<C,E>,<D,E>}
+3. 完整圖形(Complete Graph)
+   - In Undirected Graph, there 5 vertice and 10 edge, 符合公式: n (n - 1) / 2
+   - In Directed Graph, there 5 vertice and 20 edge, 符合公式: n (n - 1)
+4. 子圖(Subgraph)
+   
+   - Path 路徑: 兩個頂點所經過的邊，稱為路徑
+   - Path Length 路徑長度: 路徑上總共包含幾條邊
+5. 
