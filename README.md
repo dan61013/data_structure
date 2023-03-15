@@ -22,19 +22,20 @@
     - [3-2 堆疊的ADP](#3-2-堆疊的adp)
   - [Chapter04 佇列 Queue](#chapter04-佇列-queue)
     - [4-1 佇列的APT](#4-1-佇列的apt)
-  - [Chapter04 Tree](#chapter04-tree)
-    - [4-1 樹](#4-1-樹)
-    - [4-2 樹的定義](#4-2-樹的定義)
-    - [4-3 結構](#4-3-結構)
-    - [4-4 Binary Tree (二元樹)](#4-4-binary-tree-二元樹)
-      - [4-4-1 完滿二元樹 (Fully Binary Tree)](#4-4-1-完滿二元樹-fully-binary-tree)
-      - [4-4-2 完整二元樹 (Complete Binary Tree)](#4-4-2-完整二元樹-complete-binary-tree)
-      - [4-4-3 歪斜樹 (Skewed Binary Tree)](#4-4-3-歪斜樹-skewed-binary-tree)
-      - [4-4-4 二元樹的儲存方式](#4-4-4-二元樹的儲存方式)
-    - [4-3 二元樹走訪 (Binary Tree Traversal)](#4-3-二元樹走訪-binary-tree-traversal)
-  - [Chapter05 Graph 圖](#chapter05-graph-圖)
-    - [5-1 定義](#5-1-定義)
-    - [5-2 圖的種類](#5-2-圖的種類)
+  - [Chapter05 Tree](#chapter05-tree)
+    - [5-1 樹](#5-1-樹)
+    - [5-2 樹的定義](#5-2-樹的定義)
+    - [5-3 結構](#5-3-結構)
+    - [5-4 Binary Tree (二元樹)](#5-4-binary-tree-二元樹)
+      - [5-4-1 完滿二元樹 (Fully Binary Tree)](#5-4-1-完滿二元樹-fully-binary-tree)
+      - [5-4-2 完整二元樹 (Complete Binary Tree)](#5-4-2-完整二元樹-complete-binary-tree)
+      - [5-4-3 歪斜樹 (Skewed Binary Tree)](#5-4-3-歪斜樹-skewed-binary-tree)
+      - [5-4-4 二元樹的儲存方式](#5-4-4-二元樹的儲存方式)
+    - [5-5 二元樹走訪 (Binary Tree Traversal)](#5-5-二元樹走訪-binary-tree-traversal)
+  - [Chapter06 Graph 圖](#chapter06-graph-圖)
+    - [6-1 定義](#6-1-定義)
+    - [6-2 圖的種類](#6-2-圖的種類)
+      - [6-2-1 相連](#6-2-1-相連)
 
 ---
 
@@ -235,41 +236,41 @@ A -> B -> C -> 明星D
 3. Delete: 可以在前端刪除資料，並得到一個新的佇列
 4. Front: 回傳前端的資料
 
-## Chapter04 Tree
+## Chapter05 Tree
 
-### 4-1 樹
+### 5-1 樹
 
 樹狀結構是一種**階層式的結構**，而非線性結構，資料沒有前後關係，
 只有上下關係。
 
-### 4-2 樹的定義
+### 5-2 樹的定義
 1. 是由一個或以上的`Node`所組成的集合
 2. 有一個特定節點，稱為根節點(Root)，會在最頂層，與現實的樹是倒過來的關係
 3. 除根節點外，其他的節點為互斥的集合，每個集合是樹根節點的子樹(Subtree)
 4. 不會有迴路
 5. 沒有次序(不同於二元樹的左右節點)
 
-### 4-3 結構
+### 5-3 結構
 |專有名詞|英文|解釋|
 |---|---|---|
-|根節點|Root|起源，結構的最頂層
-|父節點|Parent|除Root外，此節點若還有下層節點，則為Parent
-|子節點|Children|全部有上層節點的節點，則為Children
-|兄弟節點|Siblings|有共同的父節點
-|分支度|Degree|父節點下有幾個子節點
-|終端節點、樹葉節點|Terminal|沒有子節點，即最底層節點
-|非終端節點|Non-terminal|除樹葉節點外，都為非終端節點
-|階層|Level|位於樹狀結構的第幾層 (起始值: 1)
-|高度/深度|Heigh/Depth|樹狀結構總共有幾層
+|根節點|Root|起源，結構的最頂層|
+|父節點|Parent|除Root外，此節點若還有下層節點，則為Parent|
+|子節點|Children|全部有上層節點的節點，則為Children|
+|兄弟節點|Siblings|有共同的父節點|
+|分支度|Degree|父節點下有幾個子節點|
+|終端節點、樹葉節點|Terminal|沒有子節點，即最底層節點|
+|非終端節點|Non-terminal|除樹葉節點外，都為非終端節點|
+|階層|Level|位於樹狀結構的第幾層 (起始值: 1)|
+|高度/深度|Heigh/Depth|樹狀結構總共有幾層|
 
-### 4-4 Binary Tree (二元樹)
+### 5-4 Binary Tree (二元樹)
 
 定義:
 1. 二元樹可以是**空集合**
 2. 每1個節點最多只有2個子節點，左與右節點
 3. 有**次序**關係，左節點會排在右節點之前(不能顛倒)
 
-#### 4-4-1 完滿二元樹 (Fully Binary Tree)
+#### 5-4-1 完滿二元樹 (Fully Binary Tree)
 
 條件:
 * 一個高度h，節點數量等於**2h-1**
@@ -281,18 +282,18 @@ formula = 2 ** h - 1 # 2的h次方-1等於節點數量
 ans = 2 ** 3 - 1 = 7
 ```
 
-#### 4-4-2 完整二元樹 (Complete Binary Tree)
+#### 5-4-2 完整二元樹 (Complete Binary Tree)
 
 條件:
 1. 高度h，節點數量少於**2h-1**
 2. 由上到下，由**左至右**，都跟Fully Binary Tree一致
 
-#### 4-4-3 歪斜樹 (Skewed Binary Tree)
+#### 5-4-3 歪斜樹 (Skewed Binary Tree)
 
 條件:
 1. 當所有的節點都只有左(右)節點時
 
-#### 4-4-4 二元樹的儲存方式
+#### 5-4-4 二元樹的儲存方式
 
 * 陣列表示法
 
@@ -304,7 +305,7 @@ ans = 2 ** 3 - 1 = 7
 - 計算某節點的左節點: 2*i
 - 計算某節點的右節點: 2*i + 1
 
-### 4-3 二元樹走訪 (Binary Tree Traversal)
+### 5-5 二元樹走訪 (Binary Tree Traversal)
 
 走訪定義: 讀取每個節點一次
 
@@ -387,9 +388,9 @@ example: 93 100 * 10 14 * + 13 +
 -> 9440 13 + = 9453 #
 ```
 
-## Chapter05 Graph 圖
+## Chapter06 Graph 圖
 
-### 5-1 定義
+### 6-1 定義
 是由`頂點(Vertice)`和`邊(Edge)`所組成，
 公式:
 ```
@@ -399,22 +400,64 @@ G = (V,E)
 - V: 所有頂點(Vertice)的集合
 - E: 所有邊(Edge)的集合
 
-### 5-2 圖的種類
+### 6-2 圖的種類
 
 1. 無向圖(Undirected Graph)
-   邊不具有方向性，例如:**雙向道**，
-   邊以(A,B)表示
-   V: {A,B,C,D,E}
-   E: {(A,B),(A,C),(B,C),(C,D),(C,E),(D,E)}
+   * 邊不具有方向性，例如:**雙向道**，
+   * 邊以(A,B)表示
+   * V: `{A,B,C,D,E}`
+   * E: `{(A,B),(A,C),(B,C),(C,D),(C,E),(D,E)}`
+    <img src="img/graph001.png" width="50%" height="50%">
 2. 有向圖(Directed Graph)
-   邊具有方向性，例如:**單向道**，
-   邊以<A,B>表示
-   V: {A,B,C,D,E}
-   E: {<B,A>,<A,C>,<B,C>,<B,D>,<C,D>,<C,E>,<D,E>}
+   * 邊具有方向性，例如:**單向道**，
+   * 邊以<A,B>表示
+   * V: `{A,B,C,D,E}`
+   * E: `{<B,A>,<A,C>,<B,C>,<B,D>,<C,D>,<C,E>,<D,E>}`
+    <img src="img/graph002.png" width="40%" height="50%">
 3. 完整圖形(Complete Graph)
    - In Undirected Graph, there 5 vertice and 10 edge, 符合公式: n (n - 1) / 2
    - In Directed Graph, there 5 vertice and 20 edge, 符合公式: n (n - 1)
+    <img src="img/graph003.png" width="60%" height="50%">
 4. 子圖(Subgraph)
+   * 假如`右圖`是`左圖`的子圖，則`乙圖`的vertice and edge，都會包含在`甲圖`中
+
+    <img src="img/graph004.png" width="90%" height="50%">
+
+    |名詞|英文|解釋|範例|
+    |---|---|---|---|
+    |路徑|Path|兩個頂點所經過的邊，稱為路徑|如右圖的`A`到`D`，路徑: `{(A,E),(E,D)}`|
+    |路徑長度|Path Length|路徑上總共包含幾條邊|如右圖`A`到`D`，總共經過2條邊(`{(A,E),(E,D)}`)|
+    |簡單路徑|Simple Path|一條路徑，起點終點可以是同一個點，但其他頂點不能重複出現|如左圖，`ABCDEA`是簡單路徑；`ABCDBA`則不是|
+    |循環|Cycle|起點與終點是同一個頂點的簡單路徑|如`ABCDEA`
+
+#### 6-2-1 相連
+> 相連: 兩個vertice之間，存有路徑可以相通
+
+1. 相連單元 Connected Components
    
-   - Path 路徑: 兩個頂點所經過的邊，稱為路徑
-   - Path Length 路徑長度: 路徑上總共包含幾條邊
+   在`無向圖`中，圖形有不同的元件(Components)，元件指的是上圖的兩個子圖，代表圖形是由多個子圖組成
+   * 子圖之間互不相連
+   * 子圖內部任一個`vertice`都存在`Path`可以通往任一端點
+
+    <img src="img/graph005.png" width="80%" height="80%">
+
+2. 強相連 Strongly Connected
+   
+    在`有向圖`中，任意兩端頂點之間存在路徑可以互通，如下圖，任一頂點都可以連到另一個頂點
+
+    <img src="img/graph006.png" width="40%" height="40%">
+
+3. 強相連單元 Strongly Connected Compontents
+   
+   在`有向圖`中，任意兩點之間不存在路徑，下圖不是`強相連`，但為`強相連單元`
+
+
+   <img src="img/graph007.png" width="80%">
+
+4. 分支度 Degree
+   * 在`無向圖`中: 一個頂點包含幾條邊
+   * 在`有向圖`中: 
+     * 入分支度(In-Degree): 從其他端點指入此端點的個數，如下圖`A`的入分支度為1
+     * 出分支度(Out-Degree): 從此端點指出的個數，如下圖`A`的出分支度為2
+
+        <img src="img/graph008.png" width="60%">
