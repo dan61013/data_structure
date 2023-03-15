@@ -409,21 +409,27 @@ G = (V,E)
    * 邊以(A,B)表示
    * V: `{A,B,C,D,E}`
    * E: `{(A,B),(A,C),(B,C),(C,D),(C,E),(D,E)}`
-    <img src="img/graph001.png" width="50%" height="50%">
+    
+    <img src="img/graph001.png" width="30%">
+
 2. 有向圖(Directed Graph)
    * 邊具有方向性，例如:**單向道**，
    * 邊以<A,B>表示
    * V: `{A,B,C,D,E}`
    * E: `{<B,A>,<A,C>,<B,C>,<B,D>,<C,D>,<C,E>,<D,E>}`
-    <img src="img/graph002.png" width="40%" height="50%">
+
+    <img src="img/graph002.png" width="30%">
+
 3. 完整圖形(Complete Graph)
    - In Undirected Graph, there 5 vertice and 10 edge, 符合公式: n (n - 1) / 2
    - In Directed Graph, there 5 vertice and 20 edge, 符合公式: n (n - 1)
-    <img src="img/graph003.png" width="60%" height="50%">
+
+    <img src="img/graph003.png" width="30%">
+
 4. 子圖(Subgraph)
    * 假如`右圖`是`左圖`的子圖，則`乙圖`的vertice and edge，都會包含在`甲圖`中
 
-    <img src="img/graph004.png" width="90%" height="50%">
+    <img src="img/graph004.png" width="65%">
 
     |名詞|英文|解釋|範例|
     |---|---|---|---|
@@ -441,20 +447,20 @@ G = (V,E)
    * 子圖之間互不相連
    * 子圖內部任一個`vertice`都存在`Path`可以通往任一端點
 
-    <img src="img/graph005.png" width="80%" height="80%">
+    <img src="img/graph005.png" width="65%">
 
 2. 強相連 Strongly Connected
    
     在`有向圖`中，任意兩端頂點之間存在路徑可以互通，如下圖，任一頂點都可以連到另一個頂點
 
-    <img src="img/graph006.png" width="40%" height="40%">
+    <img src="img/graph006.png" width="30%">
 
 3. 強相連單元 Strongly Connected Compontents
    
    在`有向圖`中，任意兩點之間不存在路徑，下圖不是`強相連`，但為`強相連單元`
 
 
-   <img src="img/graph007.png" width="80%">
+   <img src="img/graph007.png" width="65%">
 
 4. 分支度 Degree
    * 在`無向圖`中: 一個頂點包含幾條邊
@@ -462,7 +468,7 @@ G = (V,E)
      * 入分支度(In-Degree): 從其他端點指入此端點的個數，如下圖`A`的入分支度為1
      * 出分支度(Out-Degree): 從此端點指出的個數，如下圖`A`的出分支度為2
 
-        <img src="img/graph008.png" width="60%">
+        <img src="img/graph008.png" width="30%">
 
 ### 6-3 圖形表示法
 共有4種:
@@ -476,12 +482,9 @@ G = (V,E)
 1. 為`4 * 4`的二維矩陣
 2. `Value`為邊的數量
 
-    <img src="img/graph009.png" width="40%">
+    <img src="img/graph009.png" width="30%" aglin="left">
+    <img src="img/table001.png" width="30%" aglin="left">
 
-    **二維矩陣**
-    ||1|2|3|4|
-    |-|-|-|-|-|
-    |1|0|1|1|1|
-    |2|1|0|0|1|
-    |3|1|0|0|1|
-    |4|1|1|1|0|
+特性:
+1. `無向圖`的矩陣是對稱的，對角線皆為`0`，`有向圖`則不一定
+2. 對稱的情況下，只須保存一半的部分(沿對角線)，所以可以只需使用`n(n - 1 )/ 2`的空間
