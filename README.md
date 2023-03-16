@@ -38,12 +38,14 @@
       - [6-2-1 相連](#6-2-1-相連)
     - [6-3 圖形表示法](#6-3-圖形表示法)
       - [6-3-1 Adjacency Matrix](#6-3-1-adjacency-matrix)
+      - [6-3-2 Adjacency List](#6-3-2-adjacency-list)
 
 ---
 
 ## 參考資料: 
 1. [擁抱「資料結構」的「演算法」](https://ithelp.ithome.com.tw/users/20129841/ironman/3300)
 2. [【Python】Single Linked List(單向鏈結串列) 資料結構實作 | 愛喝咖啡 Ｘ 咖啡程式](https://lovedrinkcafe.com/python-single-linked-list/)
+3. [CUM Linked List](https://www.andrew.cmu.edu/course/15-121/lectures/Linked%20Lists/linked%20lists.html)
 
 ---
 
@@ -488,3 +490,18 @@ G = (V,E)
 特性:
 1. `無向圖`的矩陣是對稱的，對角線皆為`0`，`有向圖`則不一定
 2. 對稱的情況下，只須保存一半的部分(沿對角線)，所以可以只需使用`n(n - 1 )/ 2`的空間
+
+分支度:
+* 有向圖: 頂點i的分支度，等於第i row的元素和。例如: 頂點1的分支和等於`row(1)`，`0 + 1 + 1 + 1 = 3`#
+* 無向圖:
+  * 出分支度: 第i row的元素和，如下圖: 頂點3的出分支度等於`1 + 1 = 2`
+  * 入分支度: 第i column的元素和，如下圖: 頂點3的入分支度等於`1 + 0 + 0 = 1`
+
+    <img src="img/graph010.png" width="30%" aglin="left">
+    <img src="img/table002.png" width="30%" aglin="left">
+
+#### 6-3-2 Adjacency List
+> 與Matrix不同的是，List只處理有Edge的部分。
+
+定義: 每個頂點都有獨立的List，List的每個節點儲存相鄰的頂點，每個節點接包含: `頂點`與相鄰頂點的`指標`
+
