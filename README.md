@@ -39,6 +39,8 @@
     - [6-3 圖形表示法](#6-3-圖形表示法)
       - [6-3-1 Adjacency Matrix](#6-3-1-adjacency-matrix)
       - [6-3-2 Adjacency List](#6-3-2-adjacency-list)
+      - [6-3-3 Adjacency Multilist](#6-3-3-adjacency-multilist)
+      - [6-3-4 Index Table](#6-3-4-index-table)
 
 ---
 
@@ -505,3 +507,48 @@ G = (V,E)
 
 定義: 每個頂點都有獨立的List，List的每個節點儲存相鄰的頂點，每個節點接包含: `頂點`與相鄰頂點的`指標`
 
+<img src="./img/linked_list001.png" width="65%">
+
+特性:
+* 無向圖: 
+  * Vertices = n
+  * Edge = e
+  * 首節點 = n
+  * Node  = `2 * e`
+  * 範例(上圖): n = 4; e = 5; 首節點 = 4; Node = `2 * 5 = 10`
+* 有向圖:
+  * Vertices = n
+  * Edge = e
+  * 首節點 = n
+  * Node  = e
+  * 範例(下圖): n = 3; e = 4; 首節點 = 3; Node = 4
+
+分支度:
+* 有向圖:
+  * 任一頂點的分支度，即相連串列上的節點數
+  * 範例(上圖): 頂點1的分支度: `3`
+* 無向圖:
+  * 出分支度: 任意頂點的分支度，就是相連串列上的節點數(扣除首節點)
+    * 範例(上圖): 頂點`3`，出分支度 = 2
+  * 入分支度: 較複雜，需要重覆尋找比對串列之間節點的關係，可另外紀錄一組反鄰串列(Inverse Adjacency List)，以方便查詢
+
+<img src="./img/linked_list002.png" width="65%">
+
+#### 6-3-3 Adjacency Multilist
+
+相鄰多元串列，此方式以`Edge`為主，而上述兩種方式([Adjacency Matrix](#6-3-1-adjacency-matrix)、[Adjacency List](#6-3-2-adjacency-list))，皆為針對頂點處理。
+
+定義: 每個`Edge`皆以一個`Node`表示
+* 此Node包含(如下圖`L1`):
+  * 邊的標記: `L1`
+  * 邊的起點: `1`
+  * 邊的終點: `2`
+  * 2個指標可以指向其他節點: `1`, `2`
+
+<img src="./img/mulitilist001.png">
+
+#### 6-3-4 Index Table
+
+索引表，使用兩個一維陣列，依照順序儲存相鄰的Vertex
+
+<img src="./img/index_table001.png">
