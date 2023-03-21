@@ -41,6 +41,10 @@
       - [6-3-2 Adjacency List](#6-3-2-adjacency-list)
       - [6-3-3 Adjacency Multilist](#6-3-3-adjacency-multilist)
       - [6-3-4 Index Table](#6-3-4-index-table)
+  - [Chapter07 Hash](#chapter07-hash)
+    - [7-1 專有名詞](#7-1-專有名詞)
+    - [7-2 Hashing Function](#7-2-hashing-function)
+    - [7-3 Overflow Handing](#7-3-overflow-handing)
 
 ---
 
@@ -552,3 +556,54 @@ G = (V,E)
 索引表，使用兩個一維陣列，依照順序儲存相鄰的Vertex
 
 <img src="./img/index_table001.png">
+
+---
+
+## Chapter07 Hash
+
+> 在存取資料之前，先以雜湊函數(Hash Function)計算後，才能得知存取位置
+
+特徵:
+1. `Data_A`可以透過特定的`Function`，轉換得到`Data_B`
+2. 不可逆
+
+### 7-1 專有名詞
+
+* 雜湊函數 Hashing Function
+    * 將資料透過特定方式，計算出的結果可以轉換為儲存位置，好的雜湊應計算容易、碰撞少，使雜湊表的儲存狀態平均
+* 雜湊值 Hash Code
+  * 原始資料經過Hashing Function計算的結果，結果無法回推原始資料，`不可逆`
+  * `HashingFunction(x) = Hash Code`
+* 雜湊表 Hash Table
+  * 用來儲存資料的連續記憶體，每一筆資料對應一個位置(Bucket)
+* 桶 Bucket
+  * Hash Table的某一筆資料，會存放在一個位置上(Bucket Address)
+* 槽 Slot
+  * 一筆資料會有N個欄位，代表有N個Slot
+* 碰撞 Collision
+  * N筆資料經過Hashing Function計算的Hash Code都相同時，就會使用到同一個Bucket Address
+* 溢位 Overflow
+  * Bucket Address已經被其他資料存滿，無法儲存於該位址
+
+### 7-2 Hashing Function
+
+1. 除法 Mod/Division
+   1. `H(x) = x mod A`
+   2. 餘數等於`Hash Code`
+   3. x會放在`array[餘數]`的位置
+   4. x = 20, A = 3, 20 % 3 = 6; 則位置等於`array[2]`
+2. 中間平方法 Middle Square
+   1. `H(x) = x * x`，再取十與個位數的數值
+   2. 十與個位數的數值等於`Hash Code`
+   3. x會放在`array[十與個位數的數值]`
+   4. x = 15, x * x = 225; 則位置等於`array[25]`
+3. 摺疊法 Folding Addition
+    * 移動摺疊法 Shift
+      * 大數值適用
+      * x = 321121356, 可以拆分成3個部分後，再相加: `321 + 121 + 356 = 798`
+    * 邊界摺疊法
+      * 將特定段的數值，Reverse後再相加，例如(第三段Reverse): `321 + 121 + 653 = 1095`
+4. 數位分析法 Digits Analysis
+    * 如果已知資料的重複性很高，可以將重複的資料捨去後，再做運算
+
+### 7-3 Overflow Handing
