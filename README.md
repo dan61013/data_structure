@@ -45,6 +45,10 @@
     - [7-1 專有名詞](#7-1-專有名詞)
     - [7-2 Hashing Function](#7-2-hashing-function)
     - [7-3 Overflow Handing](#7-3-overflow-handing)
+      - [7-3-1 Linear Probing / Open Addressing Mode](#7-3-1-linear-probing--open-addressing-mode)
+      - [7-3-2 Quadratic Probing](#7-3-2-quadratic-probing)
+      - [7-3-3 Chaining](#7-3-3-chaining)
+      - [7-3-4 Rehashing](#7-3-4-rehashing)
 
 ---
 
@@ -607,3 +611,51 @@ G = (V,E)
     * 如果已知資料的重複性很高，可以將重複的資料捨去後，再做運算
 
 ### 7-3 Overflow Handing
+
+#### 7-3-1 Linear Probing / Open Addressing Mode
+線性探測/線性開放定址，當兩筆資料`x`, `y`代入`H()`後的到的Hash Code如果相同，則會發生Overflow，此時可以將Hash Code + 1，直到找到空儲位，或是儲存空間滿為止
+
+Example: 儲存4個數值，分別為21, 32, 13, 43，`H(x) = x % 10`，最後存到43時，會發現已經重複了，這時候原本應該要存在3的位置上，但因為已經先存了13，所以往後找到下一個空儲位，也就是4
+
+* 缺點: 搜尋空儲位的時間不穩定
+
+|Address|Data|
+|-|-|
+|0|N/A|
+|1|21|
+|2|32|
+|3|13|
+|4|N/A(43)|
+
+#### 7-3-2 Quadratic Probing
+平方探測
+1. 公式: `(H(x)±i^2)%b`
+2. b: 資料可儲存位置(Bucket Address)
+3. i: 遞迴變數
+
+Example: 儲存4個數值，分別為10, 21, 22, 32，當32填入時，因為無法填入`2`的位置，所以代入公式得到`(2 + 1) % 5 = 3`
+
+* 缺點: 同線性探測 Linear Probing
+
+|Address|Data|
+|-|-|
+|0|10|
+|1|21|
+|2|22|
+|3|N/A(32)|
+|4|N/A|
+
+#### 7-3-3 Chaining
+
+Hash Table初始會在每個位置準備串列，同一個位置即可儲存多筆資料，以連結串列相接起來，以資料10, 21, 22, 32，4個數值而言，在處理32時，就可以加在22後方
+
+|Address|List|
+|-|-|
+|0|-> 10|
+|1|-> 21|
+|2|-> 22 -> 32|
+|3|N/A|
+|4|N/A|
+
+#### 7-3-4 Rehashing
+再雜湊，準備多個Hashing Functions，從第一個開始執行，只要遇到Overflow，就進行下一個方式，直到Overflow停止
