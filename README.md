@@ -53,6 +53,7 @@
     - [8-1 Collection](#8-1-collection)
     - [8-2 HashSet](#8-2-hashset)
     - [8-3 Map / Dictionary](#8-3-map--dictionary)
+  - [Chapter09 Algorithm](#chapter09-algorithm)
 
 ---
 
@@ -697,3 +698,19 @@ Hash Table初始會在每個位置準備串列，同一個位置即可儲存多�
 2. 相同內容可以對應不同的鍵值
 3. 可個別操作鍵值或內容
 4. [程式碼操作](Chapter08/8-3.py)(Python中，等於基本的`dict`操作)
+
+## Chapter09 Algorithm
+
+> 合適的資料結構搭配快速有效的演算法，是工程師應培養的基礎能力
+
+* 必要因素
+  1. Input
+  2. 明確的指令
+  3. 有限的步驟
+  4. 有效的作法
+  5. Output
+
+* 表示法
+  * 文字
+  * 虛擬碼 Pseudo Code
+  * 流程圖 Flow Chart
