@@ -49,6 +49,10 @@
       - [7-3-2 Quadratic Probing](#7-3-2-quadratic-probing)
       - [7-3-3 Chaining](#7-3-3-chaining)
       - [7-3-4 Rehashing](#7-3-4-rehashing)
+  - [Chapter08 集合與映射](#chapter08-集合與映射)
+    - [8-1 Collection](#8-1-collection)
+    - [8-2 HashSet](#8-2-hashset)
+    - [8-3 Map / Dictionary](#8-3-map--dictionary)
 
 ---
 
@@ -659,3 +663,37 @@ Hash Table初始會在每個位置準備串列，同一個位置即可儲存多�
 
 #### 7-3-4 Rehashing
 再雜湊，準備多個Hashing Functions，從第一個開始執行，只要遇到Overflow，就進行下一個方式，直到Overflow停止
+
+## Chapter08 集合與映射
+
+### 8-1 Collection
+
+各類集合的特性:
+|類型|性質|說明|
+|-|-|-|
+|Sorted Set (有序集合)|排序性|會自動將資料由小至大排序|
+|List|順序性|資料會按照某種順序排列|
+|HashSet|重複性|HashSet不允許；但List允許重複|
+|Key & Value|鍵值|每個集合中的元素都有自己的鍵值，具有唯一性|
+
+### 8-2 HashSet
+
+> 是一種實作集合(Collection)的類別
+
+特性
+1. 無排序
+2. 無順序
+3. 資料不可重複，可包含空元素
+4. 無鍵值
+
+* HashSet在Python實作就是使用一般的`set.add`方式加入即可，[參考範例](Chapter08/8-1.py)
+* 資料不可重複的特性[範例](Chapter08/8-2.py)
+
+### 8-3 Map / Dictionary
+映射/字典，Map提供鍵，讓我們可以快速找到值的內容，也就是常聽到的`鍵值對 (Key-value pairs)`，是Index & 內容的集合，常用`Map <K, V>`表示
+
+特性:
+1. 每個鍵值只能對應一個內容
+2. 相同內容可以對應不同的鍵值
+3. 可個別操作鍵值或內容
+4. [程式碼操作](Chapter08/8-3.py)(Python中，等於基本的`dict`操作)
