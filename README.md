@@ -13,7 +13,7 @@
       - [1-3-2 Two Dimensional Array](#1-3-2-two-dimensional-array)
       - [1-3-3 Three Dimensional Array](#1-3-3-three-dimensional-array)
   - [Chapter02](#chapter02)
-    - [2-1 Linked List 連接串列](#2-1-linked-list-連接串列)
+    - [2-1 Linked List 連結串列](#2-1-linked-list-連結串列)
     - [2-2 Singly Linked List](#2-2-singly-linked-list)
     - [2-3 Double Linked List](#2-3-double-linked-list)
     - [2-4 Circular Linked List](#2-4-circular-linked-list)
@@ -54,6 +54,15 @@
     - [8-2 HashSet](#8-2-hashset)
     - [8-3 Map / Dictionary](#8-3-map--dictionary)
   - [Chapter09 Algorithm](#chapter09-algorithm)
+    - [9-1 效能分析](#9-1-效能分析)
+    - [9-2 Big-O(O)](#9-2-big-oo)
+      - [9-2-1 Big-O(1)](#9-2-1-big-o1)
+      - [9-2-2 Big-O(n)](#9-2-2-big-on)
+      - [9-2-3 Big-O(n^2)](#9-2-3-big-on2)
+      - [9-2-4 Big-O(log n)](#9-2-4-big-olog-n)
+      - [9-2-5 Big-O(n log n)](#9-2-5-big-on-log-n)
+      - [9-2-6 Big-O(n!)](#9-2-6-big-on)
+      - [9-2-7 總結](#9-2-7-總結)
 
 ---
 
@@ -61,6 +70,7 @@
 1. [擁抱「資料結構」的「演算法」](https://ithelp.ithome.com.tw/users/20129841/ironman/3300)
 2. [【Python】Single Linked List(單向鏈結串列) 資料結構實作 | 愛喝咖啡 Ｘ 咖啡程式](https://lovedrinkcafe.com/python-single-linked-list/)
 3. [CUM Linked List](https://www.andrew.cmu.edu/course/15-121/lectures/Linked%20Lists/linked%20lists.html)
+4. [Tree Wiki](https://en.wikipedia.org/wiki/Tree_(data_structure))
 
 ---
 
@@ -161,7 +171,7 @@ print(arr[3, 1, 5]) # 第四周的星期四中午
 
 ## Chapter02 
 
-### 2-1 Linked List 連接串列
+### 2-1 Linked List 連結串列
 
 Linked List有三種:
 1. 單向
@@ -180,17 +190,17 @@ Linked List有三種:
     2. tail: 指向最後一個node
     3. 在依循搜尋時，current會指向當前的node
 
-IT邦介紹:
-1. 每個元素都是獨立的，與Array不同，不是一體成形
-2. 可以單獨使用，也可以合併使用
-3. 易於新增刪除、調整順序
+* IT邦幫忙介紹:
+  1. 每個元素都是獨立的，與Array不同，不是一體成形
+  2. 可以單獨使用，也可以合併使用
+  3. 易於新增刪除、調整順序
 
-※ 人脈弱連結:
+* Example: 人脈弱連結
 
-A的朋友B，B的朋友C的表哥是明星D，所以A想要與明星D聯繫上，就必須:
-```
-A -> B -> C -> 明星D
-```
+  如A的朋友B，B的朋友C的表哥是明星D，所以A想要與明星D聯繫上，就必須經過:
+  ```
+  A -> B -> C -> 明星D
+  ```
 
 ### 2-2 Singly Linked List
 
@@ -201,7 +211,7 @@ A -> B -> C -> 明星D
 2. 一個節點包含**資料**與**指標**
 3. 無索引，必須**單向**依序讀取**節點**，透過**指標**，才知道下一個要讀取哪個節點(無法像陣列透過索引就能讀取資料)
 4. 插入或新增節點很方便，只要改變指標即可
-5. 結尾是None(python) -> Null
+5. 結尾是`None`(python) -> `Null`
 
 ### 2-3 Double Linked List
 
@@ -210,7 +220,7 @@ A -> B -> C -> 明星D
 - 每個node都會有previous node and next node
 - 新增時要改變4個pointer
 - 刪除時要改變2個pointer (previous node.next and next node.previous)
-- 結尾是 None(python) -> Null
+- 結尾是`None`(python) -> `Null`
 
 ### 2-4 Circular Linked List
 
@@ -225,48 +235,46 @@ A -> B -> C -> 明星D
 - 抽象資料型態 (Abstract Data Type, ADT): 大範圍，不具體、不仔細的資料
 - 堆疊是一種抽象資料型態
 
-特性:
-
-1. 只能從最頂端存取資料
-2. 只能從最頂端新增或刪除資料
-3. 資料的存取必須符合後進先出 (Last In First Out, LIFO)
+* 特性:
+  1. 只能從最頂端存取資料
+  2. 只能從最頂端新增或刪除資料
+  3. 資料的存取必須符合後進先出 (Last In First Out, LIFO)
 
 ### 3-2 堆疊的ADP
 
-只要某一個類有提供以下方法，我們都可以稱此類為一種堆疊
-
-1. Create: 可以建立一個空堆疊
-2. Push: 可以在頂端新增資料，並得到一個新堆疊
-3. Pop: 可以刪除頂端資料，並得到一個新堆疊
-4. Peek: 回傳堆疊頂端的資料
+* 堆疊(Stack)的類條件:
+  1. Create: 可以建立一個空堆疊
+  2. Push: 可以在頂端新增資料，並得到一個新堆疊
+  3. Pop: 可以刪除頂端資料，並得到一個新堆疊
+  4. Peek: 回傳堆疊頂端的資料
 
 ## Chapter04 佇列 Queue
 
-特性:
-1. 有兩個端點，分為**前後端**
-2. 後端只能新增資料
-3. 前端只能讀取、刪除資料
-4. 資料存取必須符合先進先出(First In First Out, FIFO)
+* 特性:
+  1. 有兩個端點，分為**前後端**
+  2. 後端只能新增資料
+  3. 前端只能讀取、刪除資料
+  4. 資料存取必須符合先進先出(First In First Out, FIFO)
 
 ### 4-1 佇列的APT
 
-1. Create: 建立一個新的佇列
-2. Add: 可以在後端新增資料，並得到一個新的佇列
-3. Delete: 可以在前端刪除資料，並得到一個新的佇列
-4. Front: 回傳前端的資料
+* 佇列(Queue)的類條件:
+  1. Create: 建立一個新的佇列
+  2. Add: 可以在後端新增資料，並得到一個新的佇列
+  3. Delete: 可以在前端刪除資料，並得到一個新的佇列
+  4. Front: 回傳前端的資料
 
 ## Chapter05 Tree
 
 ### 5-1 樹
 
-樹狀結構是一種**階層式的結構**，而非線性結構，資料沒有前後關係，
-只有上下關係。
+> 樹狀結構是一種**階層式的結構**，而非線性結構，資料沒有前後關係，只有上下關係。
 
 ### 5-2 樹的定義
 1. 是由一個或以上的`Node`所組成的集合
-2. 有一個特定節點，稱為根節點(Root)，會在最頂層，與現實的樹是倒過來的關係
+2. 有一個特定節點，稱為根節點(Root)，會在最頂層，與現實的樹是上下顛倒的關係
 3. 除根節點外，其他的節點為互斥的集合，每個集合是樹根節點的子樹(Subtree)
-4. 不會有迴路
+4. 不會形成迴路
 5. 沒有次序(不同於二元樹的左右節點)
 
 ### 5-3 結構
@@ -399,7 +407,7 @@ ans = 2 ** 3 - 1 = 7
 **習題**
 ```
 example: 93 100 * 10 14 * + 13 +
-此為postorder (運算子在最右側)
+此為Postorder (運算子在最右側)
 -> 93 100 * = 9300
 -> 9300 10 14 = None
 -> 10 14 * = 140
@@ -713,4 +721,66 @@ Hash Table初始會在每個位置準備串列，同一個位置即可儲存多�
 * 表示法
   * 文字
   * 虛擬碼 Pseudo Code
+    * 演算法的描述語言，介於自然語言與程式語言之間，主要表達解決問題的`邏輯與架構`，可透過程式語言撰寫要執行的程式碼。
   * 流程圖 Flow Chart
+
+### 9-1 效能分析
+
+通常評估演算法的方式，主要考量以下兩個主要因素:
+
+1. Time Complexity
+   1. 時間複雜度是主要的考量因素
+   2. 依照`實際執行時間`評估
+   3. 又以以下三種符號來表示時間複雜度
+      |符號|解釋|
+      |-|-|
+      |Big-O(O)|Worst Case，演算法時間函式的上限(Upper bound)，即最糟糕情況下的執行次數。
+      |Omega(Ω)|Best Case，演算法時間函式的下限(Lower bound)
+      |Theta(θ)|Average Case，演算法時間函式的上限與下限
+2. Space Complexity
+   1. 執行演算法時，所使用的記憶體空間
+   2. 記憶體空間與執行速度成反比
+   3. 注意記憶體超過100%，可能會造成當機
+
+### 9-2 Big-O(O)
+
+#### 9-2-1 Big-O(1)
+> 執行時間不受輸入資料量的影響
+
+Example: [從陣列(List)取值](./Chapter09/9-1.py)
+
+#### 9-2-2 Big-O(n)
+> Input越多，Output也越多，執行時間成等比例增加
+
+Example: [列印出陣列的每一個數值](./Chapter09/9-2.py)
+
+#### 9-2-3 Big-O(n^2)
+> Input數量增加，執行時間會以指數增加
+
+Example: [巢狀迴圈](./Chapter09/9-3.py)
+
+#### 9-2-4 Big-O(log n)
+
+#### 9-2-5 Big-O(n log n)
+
+#### 9-2-6 Big-O(n!)
+
+#### 9-2-7 總結
+
+執行時間由小至大排列:
+
+|Time Complexity|說明|
+|-|-|
+|O(1)|常數時間|
+|O(log n)|對數時間|
+|O(n)|線性時間|
+|O(n log n)|[線性乘對問題](https://youtu.be/JSceec-wEyw)|
+|O(n^2)|平方時間|
+|O(n!)|階乘時間|
+
+陣列與連結串列比較表:
+|動作|List|Linked List|
+|-|-|-|
+|讀取|`O(1)`: Index讀取|`O(n)`: 逐一讀取|
+|新增|`O(n)`: 需要搬移其他項目|`O(1)`: 修改指標|
+|刪除|`O(n)`: 需要搬移其他項目|`O(1)`: 修改指標|
