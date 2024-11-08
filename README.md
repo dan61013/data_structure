@@ -34,7 +34,7 @@ Table of contents:
       - [6-1-2 Adjacency List](#6-1-2-adjacency-list)
       - [6-1-3 Adjacency Multi-list](#6-1-3-adjacency-multi-list)
       - [6-1-4 Index Table](#6-1-4-index-table)
-    - [6-2 相連](#6-2-相連)
+    - [6-2 Connected Graph](#6-2-connected-graph)
   - [Chapter07 Hash](#chapter07-hash)
     - [7-1 專有名詞](#7-1-專有名詞)
     - [7-2 Hashing Function](#7-2-hashing-function)
@@ -456,17 +456,29 @@ Explanation: 中序尋訪，因此Root會在中間位置，而最左邊會是左
 
 ## Chapter06 Graph 圖
 
-定義: 由`頂點(Vertices)`和`邊(Edge)`所組成，公式:
+Reference: [【資料結構】圖論（Graph）Part 1](https://yalanin.medium.com/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B-%E5%9C%96%E8%AB%96-graph-part-1-41d7875cb684)
+
+定義: 通常由2個集合，包含`頂點(Vertices)`和`邊(Edges)`所組成，公式:
 
 ```python
+# Graph -> G
+# Vertices -> V (所有頂點的集合)
+# Edges -> E (所有邊的集合)
 G = (V, E)
 ```
 
-Explanation:
+Graph的類型有2種:
 
-- G: Graph 圖
-- V: 所有頂點(Vertices)的集合
-- E: 所有邊(Edge)的集合
+- Undirected Graph (Simply Graph)
+  - 最大邊線數: `n * (n - 1) / 2`
+  - Example: `4 * (4 - 1) / 2 = 6` (四邊形加上中間交叉2條線)
+- Directed Graph (Diagraph)
+  - 最大邊線數: `n * (n - 1)` (無向圖的2倍，因為每個邊都可以雙向各一條)
+
+限制:
+
+1. 起點與終點不為同一頂點
+2. 對於相同的兩頂點，邊不能出現多次
 
 ### 6-1 圖的表示方法
 
@@ -485,7 +497,7 @@ Undirected Graph:
 
 <img src="./img/undirected_graph_001.png" width="30%">
 
-Explanation: 自己(相同vertices)或不相鄰的點都為`0`
+Explanation: 自己(相同vertices)或不相鄰的點都為`0`，下表為two-dimensional matrix
 
 |  | A | B | C | D |
 |--|:-:|:-:|:-:|:-:|
@@ -503,73 +515,133 @@ Explanation: 自己(相同vertices)或不相鄰的點都為`0`
 
 - Undirected graph: 將同一列(row)的數值加總即為分支度
 - Directed graph:
-  - 出分支度: 任一頂點的分支度就是相鄰串列上的節點樹(排除首節點)。如下圖，`C`頂點的出分支度即為2。
-  - 入分支度: 需重複尋找比對串列之間的節點關係，可以另外紀錄一組`Inverse Adjacency List`以利查詢。
+  - 出分支度: 任一頂點的row數值加總就是該頂點的出分支度。如下圖，`C`頂點的出分支度即為2。
+  - 入分支度: 任一頂點的column數值加總就是該頂點的入分支度。如下圖，`B`頂點的入分支度即為2。
 
-Undirected Graph:
+Directed Graph:
 
 <img src="./img/directed_graph_001.png" width="30%">
 
+Adjacency Matrix:
+
+|  | A | B | C |
+|--|:-:|:-:|:-:|
+|A | 0 | 1 | 0 |
+|B | 0 | 0 | 1 |
+|C | 1 | 1 | 0 |
+
 #### 6-1-2 Adjacency List
 
-> 與Matrix不同的是，List只處理有Edge的部分。
+> 與Adjacency Matrix不同的是，Adjacency List只處理有Edge的部分。
 
-定義: 每個頂點都有獨立的List，List的每個節點儲存相鄰的頂點，每個節點接包含: `頂點`與相鄰頂點的`指標`
+定義: 每個頂點都有獨立的List，List的每個Node儲存相鄰的Vertices，每個Node皆包含: `Vertices` & `Pointer`
 
-<img src="./img/linked_list001.png" width="65%">
+<img src="./img/undirected_graph_001.png" width="30%">
+
+Adjacency List (`->`代表pointer):
+
+- `A` -> `B` -> `C` -> `D`
+- `B` -> `A` -> `C`
+- `C` -> `A` -> `B` -> `D`
+- `D` -> `A` -> `C`
 
 特性:
 
-- 無向圖
-  - Vertices = n
-  - Edge = e
-  - 首節點 = n
-  - Node  = `2 * e`
-  - 範例(上圖): n = 4; e = 5; 首節點 = 4; Node = `2 * 5 = 10`
-- 有向圖
-  - Vertices = n
-  - Edge = e
-  - 首節點 = n
-  - Node  = e
-- 範例(下圖): n = 3; e = 4; 首節點 = 3; Node = 4
+- 無向圖: 有`n`個頂點，以及`e`個邊
+  - 首節點數: `n`
+  - 節點數: `2 * e` (排除首節點數後，將所有節點數相加)
+  - Example: 如上圖，`n = 4`，`e = 5`，則會有4個頂點及10個節點。
+- 有向圖: 有`n`個頂點，以及`e`個邊
+  - 首節點數: n
+  - 節點數: e (排除首節點數後，將所有節點數相加)
+- Example: 如下圖，`n = 3`，`e = 4`，則會有3個頂點及4個節點。
+
+Directed graph:
+
+<img src="./img/directed_graph_001.png" width="30%">
+
+Adjacency List:
+
+- `A` -> `B`
+- `B` -> `C`
+- `C` -> `A` -> `B`
 
 分支度:
 
-- 有向圖:
-  - 任一頂點的分支度，即相連串列上的節點數
-  - 範例(上圖): 頂點1的分支度: `3`
-- 無向圖:
-  - 出分支度: 任意頂點的分支度，就是相連串列上的節點數(扣除首節點)
-    - 範例(上圖): 頂點`3`，出分支度 = 2
-  - 入分支度: 較複雜，需要重覆尋找比對串列之間節點的關係，可另外紀錄一組反鄰串列(Inverse Adjacency List)，以方便查詢
+- Undirected Graph:
+  - 出分支度
+    - 頂點的row數值相加，就是該頂點的分支度(排除首節點)
+    - Example: 頂點`A`的分支度: 3
+- Directed Graph:
+  - 出分支度
+    - 頂點的row數值相加，就是該頂點的分支度(排除首節點)
+    - Example: 頂點`C`的出分支度: 2
+  - 入分支度: 紀錄一組Inverse Adjacency List，來查詢計算入分支度
+    - 以下列inverse adjacency list來看，頂點`B`的入分支度即為2
 
-<img src="./img/linked_list002.png" width="65%">
+以上圖directed graph來紀錄Inverse Adjacency List:
+
+- `A` <- `C`
+- `B` <- `A` <- `C`
+- `C` <- `B`
 
 #### 6-1-3 Adjacency Multi-list
 
-相鄰多元串列，此方式以`Edge`為主，而上述兩種方式([Adjacency Matrix](#6-1-1-adjacency-matrix)、[Adjacency List](#6-1-2-adjacency-list))，皆為針對頂點處理。
+這個方式不同於Adjacency matrix and list，是以**Edge**為主。
 
 定義: 每個`Edge`皆以一個`Node`表示
 
-- 此Node包含(如下圖`L1`):
-  - 邊的標記: `L1`
-  - 邊的起點: `1`
-  - 邊的終點: `2`
-  - 2個指標可以指向其他節點: `1`, `2`
+- 一個Node包含:
+  - 邊的標記(代號)
+  - 邊的起點
+  - 邊的終點
+  - Pointer1 (指向另一個有使用到**起點**的邊)
+  - Pointer2 (指向另一個有使用到**終點**的邊)
 
-<img src="./img/mulitilist001.png">
+Undirected graph:
+
+<img src="./img/undirected_graph_001.png" width=30%>
+
+Adjacency Multi-List:
+
+Format: `LineName` `Start` `End` `Pointer1` `Pointer2`
+
+- `L1` `A` `D` `L2_Start` `L4_End`
+- `L2` `A` `B` `L5_Start` `L3_Start`
+- `L3` `B` `C` `NULL` `L4_Start`
+- `L4` `C` `D` `L5_End` `NULL`
+- `L5` `A` `C` `NULL` `NULL`
+
+步驟:
+
+1. 先將每個邊的`Start` & `End`都列出
+2. 針對每個邊的起與終點往下一條邊搜尋(也包含同一頂點的邊)，並將Pointer紀錄於1或2的位置
+3. 如果沒有指向，則為`NULL`
 
 #### 6-1-4 Index Table
 
-索引表，使用兩個一維陣列，依照順序儲存相鄰的Vertex
+Index Table: 使用2個one-dimensional array進行儲存，其中一組為Index序列
 
-<img src="./img/index_table001.png">
+Undirected graph:
 
-### 6-2 相連
+<img src="./img/undirected_graph_001.png" width=30%>
+
+Index Table:
+
+The vertices: `A`、`B`、`C`、`D`
+
+| Index    | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10 |
+| :------: |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Vertices | B | C | D | A | C | A | B | D | A | C |
+| Group    | A | A | A | B | B | C | C | C | D | D |
+
+※ Group row作為輔助參考
+
+### 6-2 Connected Graph
 
 > 相連: 兩個vertices之間，存有路徑可以相通
 
-- Connected Components 相連單元: 在undirected graph中，圖形有不同的Components，元件指的是下圖的兩個子圖，代表原本的圖形是由多個子圖組成
+- Connected Components: 在undirected graph中，圖形有不同的Components，元件指的是下圖的兩個子圖，代表原本的圖形是由多個子圖組成
   - 子圖之間互不相連
   - 子圖內部任一個`vertices`都存在路徑可以通往任一端點
 
