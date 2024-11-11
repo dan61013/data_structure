@@ -36,13 +36,10 @@ Table of contents:
       - [6-1-4 Index Table](#6-1-4-index-table)
     - [6-2 Connected Graph](#6-2-connected-graph)
   - [Chapter07 Hash](#chapter07-hash)
-    - [7-1 專有名詞](#7-1-專有名詞)
-    - [7-2 Hashing Function](#7-2-hashing-function)
-    - [7-3 Overflow Handing](#7-3-overflow-handing)
-      - [7-3-1 Linear Probing / Open Addressing Mode](#7-3-1-linear-probing--open-addressing-mode)
-      - [7-3-2 Quadratic Probing](#7-3-2-quadratic-probing)
-      - [7-3-3 Chaining](#7-3-3-chaining)
-      - [7-3-4 Rehashing](#7-3-4-rehashing)
+    - [7-1 Hashing Function](#7-1-hashing-function)
+      - [7-1-4 Division Method](#7-1-4-division-method)
+      - [7-1-5 Mid Square Method](#7-1-5-mid-square-method)
+      - [7-1-6 Folding Method](#7-1-6-folding-method)
   - [Chapter08 集合與映射](#chapter08-集合與映射)
     - [8-1 Collection](#8-1-collection)
     - [8-2 HashSet](#8-2-hashset)
@@ -639,123 +636,68 @@ The vertices: `A`、`B`、`C`、`D`
 
 ### 6-2 Connected Graph
 
+Reference: 
+
+- [演算法 —連通元件(Connected Component)](https://ithelp.ithome.com.tw/articles/10333186)
+- [Graph: Component 名詞解釋](https://medium.com/algorithm-solving/graph-component-%E5%90%8D%E8%A9%9E%E8%A7%A3%E9%87%8B-619aca6080a2)
+
 > 相連: 兩個vertices之間，存有路徑可以相通
 
-- Connected Components: 在undirected graph中，圖形有不同的Components，元件指的是下圖的兩個子圖，代表原本的圖形是由多個子圖組成
-  - 子圖之間互不相連
-  - 子圖內部任一個`vertices`都存在路徑可以通往任一端點
-
-  <img src="img/graph005.png" width="65%">
-
-- Strongly Connected 強相連: 在directed graph中，任意兩端頂點之間存在路徑可以互通，如下圖，任一頂點都可以連到另一個頂點
-
-  <img src="img/graph006.png" width="30%">
-
-- Strongly Connected Components 強相連單元: 在directed graph中，任意兩點之間不存在路徑，下圖不是`強相連`，但為`強相連單元`
-
-  <img src="img/graph007.png" width="65%">
+- Connected Graph: 一個connected graph即為一個Graph，每一個Node至少都有一條路徑可以到另一個Node。
+- Connected Component: 一張undirected graph區分成幾個區塊且不連通時，每一個區塊都是一個connected component，孤立(獨立)點也是。
+- Strongly Connected Component: In directed graph，任意兩節點之間，都存在可以互相到達的路徑。
 
 ## Chapter07 Hash
 
-> 在存取資料之前，先以雜湊函數(Hash Function)計算後，才能得知存取位置
+定義: Origin_Data => Hash Function => Hash Code (Value)
 
-特徵:
+※ 且不可逆
 
-- `Data_A`可以透過特定的`Function`，轉換得到`Data_B`
-- 不可逆
+※ `Hash Collision` 哈希衝突，兩個原始數值產生出相同的`Hash Code`
 
-### 7-1 專有名詞
+### 7-1 Hashing Function
 
-- 雜湊函數 Hashing Function
-  - 將資料透過特定方式，計算出的結果可以轉換為儲存位置，好的雜湊應計算容易、碰撞少，使雜湊表的儲存狀態平均
-- 雜湊值 Hash Code
-  - 原始資料經過Hashing Function計算的結果，結果無法回推原始資料，`不可逆`
-  - `HashingFunction(x) = Hash Code`
-- 雜湊表 Hash Table
-  - 用來儲存資料的連續記憶體，每一筆資料對應一個位置(Bucket)
-- 桶 Bucket
-  - Hash Table的某一筆資料，會存放在一個位置上(Bucket Address)
-- 槽 Slot
-  - 一筆資料會有N個欄位，代表有N個Slot
-- 碰撞 Collision
-  - N筆資料經過Hashing Function計算的Hash Code都相同時，就會使用到同一個Bucket Address
-- 溢位 Overflow
-  - Bucket Address已經被其他資料存滿，無法儲存於該位址
+Hash functions有2種types:
 
-### 7-2 Hashing Function
+- Distribution - Independent function: hash function對於數據分布並不敏感。
+  - Division method
+  - Mid Square method (平方後取中間位數(字元))
+  - Folding method
+- Distribution - Dependent function: 反之。
 
-1. 除法 Mod/Division
-   1. `H(x) = x mod A`
-   2. 餘數等於`Hash Code`
-   3. x會放在`array[餘數]`的位置
-   4. x = 20, A = 3, 20 % 3 = 6; 則位置等於`array[2]`
-2. 中間平方法 Middle Square
-   1. `H(x) = x * x`，再取十與個位數的數值
-   2. 十與個位數的數值等於`Hash Code`
-   3. x會放在`array[十與個位數的數值]`
-   4. x = 15, x * x = 225; 則位置等於`array[25]`
-3. 摺疊法 Folding Addition
-    - 移動摺疊法 Shift
-    - 大數值適用
-    - x = 321121356, 可以拆分成3個部分後，再相加: `321 + 121 + 356 = 798`
-    - 邊界摺疊法
-    - 將特定段的數值，Reverse後再相加，例如(第三段Reverse): `321 + 121 + 653 = 1095`
-4. 數位分析法 Digits Analysis
-   - 如果已知資料的重複性很高，可以將重複的資料捨去後，再做運算
+#### 7-1-4 Division Method
 
-### 7-3 Overflow Handing
+Function: `H(k) = k (mod m)`
 
-#### 7-3-1 Linear Probing / Open Addressing Mode
+Example:
 
-線性探測/線性開放定址，當兩筆資料`x`, `y`代入`H()`後的到的Hash Code如果相同，則會發生Overflow，此時可以將Hash Code + 1，直到找到空儲位，或是儲存空間滿為止
+假設某公司有90個員工，而現在有100個位置可以儲存hash code (0-99)，並設定`m = 93`
 
-Example: 儲存4個數值，分別為21, 32, 13, 43，`H(x) = x % 10`，最後存到43時，會發現已經重複了，這時候原本應該要存在3的位置上，但因為已經先存了13，所以往後找到下一個空儲位，也就是4
+試計算下列員工的hash address:
 
-缺點: 搜尋空儲位的時間不穩定
+- H(2212) = 2212 % 93 = `73`
+- H(1754) = 1754 % 93 = `80`
+- H(1966) = 1966 % 93 = `13`
 
-|Address|Data|
-|-|-|
-|0|N/A|
-|1|21|
-|2|32|
-|3|13|
-|4|N/A(43)|
+Hash Table:
 
-#### 7-3-2 Quadratic Probing
+| Hash Address | EmployeeID | EmployeeName |
+| :----------: | :--------: | :----------: |
+| 0            |            |              |
+| 1            |            |              |
+| 13           | 1966       | Andy         |
+| ...          | ...        | ...          |
+| 73           | 2212       | Dan          |
+| ...          | ...        | ...          |
+| 80           | 1754       | Ken          |
 
-平方探測:
+#### 7-1-5 Mid Square Method
 
-1. 公式: `(H(x)±i^2)%b`
-2. b: 資料可儲存位置(Bucket Address)
-3. i: 遞迴變數
+TBC
 
-Example: 儲存4個數值，分別為10, 21, 22, 32，當32填入時，因為無法填入`2`的位置，所以代入公式得到`(2 + 1) % 5 = 3`
+#### 7-1-6 Folding Method
 
-缺點: 同線性探測 Linear Probing
-
-|Address|Data|
-|-|-|
-|0|10|
-|1|21|
-|2|22|
-|3|N/A(32)|
-|4|N/A|
-
-#### 7-3-3 Chaining
-
-Hash Table初始會在每個位置準備串列，同一個位置即可儲存多筆資料，以連結串列相接起來，以資料10, 21, 22, 32，4個數值而言，在處理32時，就可以加在22後方
-
-|Address|List|
-|-|-|
-|0|-> 10|
-|1|-> 21|
-|2|-> 22 -> 32|
-|3|N/A|
-|4|N/A|
-
-#### 7-3-4 Rehashing
-
-再雜湊: 準備多個Hashing Functions，從第一個開始執行，只要遇到Overflow，就進行下一個方式，直到Overflow停止
+TBA
 
 ## Chapter08 集合與映射
 
