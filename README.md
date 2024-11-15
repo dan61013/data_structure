@@ -636,7 +636,7 @@ The vertices: `A`、`B`、`C`、`D`
 
 ### 6-2 Connected Graph
 
-Reference: 
+Reference:
 
 - [演算法 —連通元件(Connected Component)](https://ithelp.ithome.com.tw/articles/10333186)
 - [Graph: Component 名詞解釋](https://medium.com/algorithm-solving/graph-component-%E5%90%8D%E8%A9%9E%E8%A7%A3%E9%87%8B-619aca6080a2)
