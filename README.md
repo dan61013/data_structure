@@ -22,7 +22,7 @@ Table of contents:
     - [5-1 Tree Definition](#5-1-tree-definition)
       - [5-1-1 Structure](#5-1-1-structure)
     - [5-2 Binary Tree 二元樹](#5-2-binary-tree-二元樹)
-      - [5-2-1 Fully Binary Tree 完滿二元樹](#5-2-1-fully-binary-tree-完滿二元樹)
+      - [5-2-1 Full Binary Tree 完滿二元樹](#5-2-1-full-binary-tree-完滿二元樹)
       - [5-2-2 Complete Binary Tree 完整二元樹](#5-2-2-complete-binary-tree-完整二元樹)
       - [5-2-3 Skewed Binary Tree 歪斜樹](#5-2-3-skewed-binary-tree-歪斜樹)
       - [5-2-4 二元樹的儲存方式](#5-2-4-二元樹的儲存方式)
@@ -322,7 +322,7 @@ Definition:
 2. 每個Node最多只有2個Children，左與右節點
 3. 有**次序**關係，左節點會排在右節點之前(`left -> right`)
 
-#### 5-2-1 Fully Binary Tree 完滿二元樹
+#### 5-2-1 Full Binary Tree 完滿二元樹
 
 條件: 一個高度`h`，節點數量等於`2h-1`
 
