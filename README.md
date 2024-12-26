@@ -17,7 +17,8 @@ Table of contents:
     - [3-2 堆疊的ADP](#3-2-堆疊的adp)
   - [Chapter04 佇列 Queue](#chapter04-佇列-queue)
     - [4-1 佇列的APT](#4-1-佇列的apt)
-    - [4-2 Stack vs Queue](#4-2-stack-vs-queue)
+    - [4-2 Priority Queue](#4-2-priority-queue)
+    - [4-3 Stack vs Queue](#4-3-stack-vs-queue)
   - [Chapter05 Tree](#chapter05-tree)
     - [5-1 Tree Definition](#5-1-tree-definition)
       - [5-1-1 Structure](#5-1-1-structure)
@@ -239,6 +240,11 @@ Example: 人脈弱連結
 
 > 將單向連結串列**最後一個節點**的指標，指向第一個節點
 
+與一般的Linked List相同，有Singly & Doubly:
+
+- [C++實作 Singly](./Algorithm/Linked%20List/program5-10.cpp)
+- [C實作 Doubly](./Algorithm/Linked%20List/doubly_circle_linked_list.c)
+
 ## Chapter03 Stack
 
 - 抽象資料型態 (Abstract Data Type, ADT): 大範圍，不具體、不仔細的資料
@@ -264,6 +270,7 @@ Example: 人脈弱連結
 特性:
 
 - 有兩個端點，分為**前後端**
+  - Front & Rear
 - 後端只能新增資料
 - 前端只能讀取、刪除資料
 - 資料存取必須符合**先進先出**(First In First Out, **FIFO**)
@@ -277,12 +284,18 @@ Example: 人脈弱連結
 - Delete: 可以在前端刪除資料，並得到一個新的佇列
 - Front: 回傳前端的資料
 
-### 4-2 Stack vs Queue
+### 4-2 Priority Queue
+
+與原本的Queue相同，但是多了`Priority`，在加入元素時，會判斷priority的大小進行插入與排序。
+
+實作參考: [Program 5-1](./Algorithm//Linked%20List/program5-11.c)
+
+### 4-3 Stack vs Queue
 
 | Type  | Feature | Add  | Delete | Read |
 | :---: | :-----: | :--: | :----: | :--: |
-| Stack | LIFO    | 頂端 | 頂端    | 頂端 |
-| Queue | FIFO    | 後端 | 前端    | 前端 |
+| Stack | LIFO    | Rear | Rear   | Rear |
+| Queue | FIFO    | Rear | Front | Front |
 
 ※ 以Array來看，Stack的頂端即為後端(尾端)
 
