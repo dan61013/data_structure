@@ -20,6 +20,7 @@ void Interpolation::interSearch(int *arr, int no) {
     cin >> key;
 
     while (low < high) {
+        // formula
         mid = low + (high - low) * ((key - arr[low]) / (arr[high] - arr[low]));
         if (key < arr[mid]) {
             high = mid - 1;
